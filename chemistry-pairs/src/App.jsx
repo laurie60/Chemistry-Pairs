@@ -9,15 +9,14 @@ import altParacetamol from "./assets/altParacetamol.svg";
 import altEthanol from "./assets/altEthanol.svg";
 
 function App() {
-  const handleOnMouseOver = (index) => {
-    console.log(index, "index in handle mouse");
-  };
-
   const sourceFTN = (index) => {
-    console.log(index, hover, "index, hover");
     if (flipped.includes(index) || found.includes(index)) {
       return chemPairs[index].image;
-    } else return chemistryCard;
+    }
+    // if (activeImage === index) {
+    //   return chemPairs[index].altImage;
+    // }
+    else return chemistryCard;
   };
 
   function shuffle(array) {
@@ -29,17 +28,40 @@ function App() {
   const [chemPairs, setChemPairs] = useState([]);
   const [found, setFound] = useState([]);
   const [allowFlip, setAllowFlip] = useState(true);
+  const [activeImage, setActiveImage] = useState(-1);
+  const [showInfo, setShowInfo] = useState(false);
 
-  console.log(flipped, "flipped");
+  console.log(activeImage, "activeImage");
 
   useEffect(() => {
     const chemicals = [
-      { image: ethanol, altImage: altEthanol },
-      { image: paracetamol, altImage: altParacetamol },
+      {
+        image: ethanol,
+        altImage: altEthanol,
+        wikipedia: "https://en.wikipedia.org/wiki/Ethanol",
+        name: "ethanol",
+      },
+      {
+        image: paracetamol,
+        altImage: altParacetamol,
+        wikipedia: "https://en.wikipedia.org/wiki/Paracetamol",
+        name: "paracetamol",
+      },
     ];
 
     setChemPairs(shuffle(chemicals.concat(chemicals)));
   }, []);
+
+  // useEffect(() => {
+  //   if (activeImage === index && found.includes(activeImage)) {
+  //     setShowInfo(true);
+  //   }
+  // }, [activeImage, found, index]);
+  const showContent = (index) => {
+    if (activeImage === index && found.includes(activeImage)) {
+      setShowInfo(true);
+    } else setShowInfo(false);
+  };
 
   useEffect(() => {
     if (
@@ -69,6 +91,12 @@ function App() {
       setFlipped([...flipped, index]);
     }
   };
+  const handleMouseOver = (index) => {
+    if (found.includes(index)) {
+      setShowInfo(true);
+      console.log(showInfo, index, "show info");
+    }
+  };
   return (
     <Layout>
       <section className="game-container">
@@ -78,18 +106,43 @@ function App() {
           }${size === 5 ? "five" : ""} pair-grid`}
         >
           {array.map((backImg, index) => {
-            chemPairs.length &&
-              console.log(chemPairs[index].image, "CHEM PAIRS image");
+            // chemPairs.length &&
+            //   console.log(chemPairs[index].image, "CHEM PAIRS image");
+            // if (activeImage === index && found.includes(activeImage) {
+            //   setShowInfo(true)
+            // })
+
             return (
-              <>
+              <div
+                className="card-cont"
+                onMouseOver={() => handleMouseOver(index)}
+                onMouseLeave={() => setShowInfo(false)}
+              >
                 <img
-                  className="grid-img"
+                  className={`grid-img ${
+                    activeImage === index && found.includes(activeImage)
+                      ? "show-link"
+                      : "hide-link"
+                  }`}
                   key={index}
-                  src={sourceFTN(index)}
+                  src={
+                    activeImage === index && found.includes(activeImage)
+                      ? chemPairs[index].altImage
+                      : sourceFTN(index)
+                  }
                   alt="Chemistry pairs logo"
                   onClick={() => handleOnClick(index)}
                 ></img>
-              </>
+                {activeImage === index && found.includes(activeImage) ? (
+                  <div className="img-text">
+                    <a href={chemPairs[index].wikipedia}>
+                      {chemPairs[index].name}
+                    </a>
+                  </div>
+                ) : (
+                  console.log("no")
+                )}
+              </div>
             );
           })}
         </div>

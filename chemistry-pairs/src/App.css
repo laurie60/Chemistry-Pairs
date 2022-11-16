@@ -137,6 +137,13 @@
   grid-gap: 1rem;
   grid-auto-flow: row;
 }
+
+.card-cont {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
 .grid-img {
   width: 100%;
   height: auto;
@@ -144,4 +151,12 @@
 
 .size-five {
   grid-template-columns: auto auto auto auto auto;
+}
+
+.img-text {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: capitalize;
 }
