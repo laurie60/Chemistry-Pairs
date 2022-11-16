@@ -7,6 +7,7 @@ import ethanol from "./assets/ethanol.svg";
 import paracetamol from "./assets/paracetamol.svg";
 import altParacetamol from "./assets/altParacetamol.svg";
 import altEthanol from "./assets/altEthanol.svg";
+
 function App() {
   const handleOnMouseOver = (index) => {
     console.log(index, "index in handle mouse");
@@ -16,12 +17,9 @@ function App() {
     console.log(index, hover, "index, hover");
     if (flipped.includes(index) || found.includes(index)) {
       return chemPairs[index].image;
-    }
-    if (hover) {
-      console.log("TRUE");
-      return chemPairs[index].altImage;
     } else return chemistryCard;
   };
+
   function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
   }
@@ -31,20 +29,14 @@ function App() {
   const [chemPairs, setChemPairs] = useState([]);
   const [found, setFound] = useState([]);
   const [allowFlip, setAllowFlip] = useState(true);
-  const [hover, setHover] = useState("");
 
   console.log(flipped, "flipped");
 
   useEffect(() => {
-    // const chemicals = [
-    //   { image: ethanol, altImage: altEthanol },
-    //   { image: paracetamol, altImage: altParacetamol },
-    // ];
     const chemicals = [
       { image: ethanol, altImage: altEthanol },
       { image: paracetamol, altImage: altParacetamol },
     ];
-    console.log(chemicals, "chemicals in useEffect");
 
     setChemPairs(shuffle(chemicals.concat(chemicals)));
   }, []);
@@ -72,7 +64,6 @@ function App() {
     array.push(chemistryCard);
   }
 
-  // console.log(array);
   const handleOnClick = (index) => {
     if (allowFlip && !flipped.includes(index)) {
       setFlipped([...flipped, index]);
@@ -89,21 +80,9 @@ function App() {
           {array.map((backImg, index) => {
             chemPairs.length &&
               console.log(chemPairs[index].image, "CHEM PAIRS image");
-            // chemPairs.length && setDynImage(chemPairs[index].image);
-
-            // console.log(dynImage);
             return (
               <>
-                {/* {console.log(hover, "DYN IMAGE", chemPairs[index].altImage)} */}
-                {console.log(hover)}
                 <img
-                  onMouseEnter={() => {
-                    handleOnMouseOver(index);
-                    // if (flipped.includes(index) || found.includes(index)) {
-                    //   setHover(index);
-                    // }
-                  }}
-                  // onMouseOut={() => setHover("")}
                   className="grid-img"
                   key={index}
                   src={sourceFTN(index)}
