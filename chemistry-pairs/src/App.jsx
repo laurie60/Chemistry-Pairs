@@ -30,6 +30,7 @@ function App() {
   const [allowFlip, setAllowFlip] = useState(true);
   const [activeImage, setActiveImage] = useState(-1);
   const [showInfo, setShowInfo] = useState(false);
+  const [index, setIndex] = useState(-1);
 
   console.log(activeImage, "activeImage");
 
@@ -86,15 +87,16 @@ function App() {
     array.push(chemistryCard);
   }
 
+  const activeAndFound = (index) => {
+    if (activeImage === index && found.includes(activeImage)) {
+      return true;
+    }
+    return false;
+  };
+
   const handleOnClick = (index) => {
     if (allowFlip && !flipped.includes(index)) {
       setFlipped([...flipped, index]);
-    }
-  };
-  const handleMouseOver = (index) => {
-    if (found.includes(index)) {
-      setShowInfo(true);
-      console.log(showInfo, index, "show info");
     }
   };
   return (
@@ -115,18 +117,16 @@ function App() {
             return (
               <div
                 className="card-cont"
-                onMouseOver={() => handleMouseOver(index)}
-                onMouseLeave={() => setShowInfo(false)}
+                onMouseOver={() => setActiveImage(index)}
+                onMouseLeave={() => setActiveImage(-1)}
               >
                 <img
                   className={`grid-img ${
-                    activeImage === index && found.includes(activeImage)
-                      ? "show-link"
-                      : "hide-link"
+                    activeAndFound(index) ? "show-link" : "hide-link"
                   }`}
                   key={index}
                   src={
-                    activeImage === index && found.includes(activeImage)
+                    activeAndFound(index)
                       ? chemPairs[index].altImage
                       : sourceFTN(index)
                   }
