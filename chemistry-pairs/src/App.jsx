@@ -3,10 +3,7 @@ import Layout from "./components/Layout";
 import logo from "./assets/chemistry.svg";
 import chemistryCard from "./assets/chemistrycard.svg";
 import { useEffect, useState } from "react";
-import ethanol from "./assets/ethanol.svg";
-import paracetamol from "./assets/paracetamol.svg";
-import altParacetamol from "./assets/altParacetamol.svg";
-import altEthanol from "./assets/altEthanol.svg";
+import useShuffleCards from "./components/useShuffleCards";
 
 function App() {
   const sourceFTN = (index) => {
@@ -19,50 +16,23 @@ function App() {
     else return chemistryCard;
   };
 
-  function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
-  }
-
   const [size, setSize] = useState(4);
   const [flipped, setFlipped] = useState([]);
-  const [chemPairs, setChemPairs] = useState([]);
   const [found, setFound] = useState([]);
   const [allowFlip, setAllowFlip] = useState(true);
   const [activeImage, setActiveImage] = useState(-1);
   const [showInfo, setShowInfo] = useState(false);
   const [index, setIndex] = useState(-1);
-
-  console.log(activeImage, "activeImage");
-
-  useEffect(() => {
-    const chemicals = [
-      {
-        image: ethanol,
-        altImage: altEthanol,
-        wikipedia: "https://en.wikipedia.org/wiki/Ethanol",
-        name: "ethanol",
-      },
-      {
-        image: paracetamol,
-        altImage: altParacetamol,
-        wikipedia: "https://en.wikipedia.org/wiki/Paracetamol",
-        name: "paracetamol",
-      },
-    ];
-
-    setChemPairs(shuffle(chemicals.concat(chemicals)));
-  }, []);
-
+  const [chemPairs, setChemPairs] = useState([]);
   // useEffect(() => {
   //   if (activeImage === index && found.includes(activeImage)) {
   //     setShowInfo(true);
   //   }
   // }, [activeImage, found, index]);
-  const showContent = (index) => {
-    if (activeImage === index && found.includes(activeImage)) {
-      setShowInfo(true);
-    } else setShowInfo(false);
-  };
+
+  useEffect(() => {
+    setChemPairs(useShuffleCards);
+  }, []);
 
   useEffect(() => {
     if (
