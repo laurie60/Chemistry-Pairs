@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/chemistry.svg";
 
-const Header = () => {
+import { Slider } from "@mui/material";
+
+const Header = ({ score, changeValue, size }) => {
   return (
     <header className="head">
-      <img src={logo} alt="Chemistry pairs logo" />
-      <h1>Chemistry Pairs</h1>
+      <div className="flex-container">
+        <Slider
+          value={size}
+          min={4}
+          step={4}
+          max={16}
+          aria-label="Restricted values"
+          sx={{ width: "100px", ml: "20px" }}
+          defaultValue={4}
+          getAriaLabel={() => "Date range"}
+          marks={[4, 8, 12, 16]}
+          onChange={changeValue}
+          valueLabelDisplay="auto"
+        />
+
+        {/* <img src={logo} alt="Chemistry pairs logo" /> */}
+        <h1>Chemistry Pairs</h1>
+        <h2>
+          Pairs:<br></br> {score}
+        </h2>
+      </div>
     </header>
   );
 };
