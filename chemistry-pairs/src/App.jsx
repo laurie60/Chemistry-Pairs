@@ -3,36 +3,34 @@ import Layout from "./components/Layout";
 import logo from "./assets/chemistry.svg";
 import chemistryCard from "./assets/chemistrycard.svg";
 import { useEffect, useState } from "react";
-import useShuffleCards from "./components/useShuffleCards";
+import shuffleCards from "./components/useShuffleCards";
+import CardDown from "./components/CardDown";
+import CardUp from "./components/CardUp";
+import ActiveCard from "./components/ActiveCard";
 
 function App() {
-  const sourceFTN = (index) => {
-    if (flipped.includes(index) || found.includes(index)) {
-      return chemPairs[index].image;
-    }
-    // if (activeImage === index) {
-    //   return chemPairs[index].altImage;
-    // }
-    else return chemistryCard;
-  };
-
-  const [size, setSize] = useState(4);
   const [flipped, setFlipped] = useState([]);
   const [found, setFound] = useState([]);
   const [allowFlip, setAllowFlip] = useState(true);
   const [activeImage, setActiveImage] = useState(-1);
-  const [showInfo, setShowInfo] = useState(false);
-  const [index, setIndex] = useState(-1);
   const [chemPairs, setChemPairs] = useState([]);
-  // useEffect(() => {
-  //   if (activeImage === index && found.includes(activeImage)) {
-  //     setShowInfo(true);
-  //   }
-  // }, [activeImage, found, index]);
+  const [size, setSize] = useState(4);
+
+  const changeValue = (event, value) => {
+    if (value !== size) {
+      setSize(value);
+    }
+    console.log(size, "size!!!!!");
+  };
 
   useEffect(() => {
-    setChemPairs(useShuffleCards);
-  }, []);
+    setFound([]);
+    setActiveImage(-1);
+    setAllowFlip(true);
+    setFlipped([]);
+    setChemPairs(shuffleCards(size));
+    console.log("changin too much");
+  }, [size]);
 
   useEffect(() => {
     if (
@@ -52,13 +50,15 @@ function App() {
     }
   }, [flipped, chemPairs, found]);
 
-  const array = [];
-  for (let i = 0; i < size; i++) {
-    array.push(chemistryCard);
-  }
-
   const activeAndFound = (index) => {
     if (activeImage === index && found.includes(activeImage)) {
+      return true;
+    }
+    return false;
+  };
+
+  const flip = (index) => {
+    if (flipped.includes(index) || found.includes(index)) {
       return true;
     }
     return false;
@@ -69,49 +69,35 @@ function App() {
       setFlipped([...flipped, index]);
     }
   };
+
+  const whichCard = (index) => {
+    console.log(found, "found");
+    console.log(activeAndFound(index));
+    if (!flip(index)) {
+      return <CardDown index={index} />;
+    } else if (flip(index) && activeAndFound(index)) {
+      return <ActiveCard index={index} chemPairs={chemPairs} />;
+    } else return <CardUp index={index} chemPairs={chemPairs} />;
+  };
   return (
-    <Layout>
+    <Layout size={size} changeValue={changeValue} score={found.length / 2}>
       <section className="game-container">
         <div
-          className={`${size === 2 ? "two" : ""} ${size === 3 ? "three" : ""} ${
-            size === 4 ? "four" : ""
-          }${size === 5 ? "five" : ""} pair-grid`}
+          className={`${size === 4 ? "four" : ""} ${
+            size === 8 ? "eight" : ""
+          } ${size === 12 ? "twelve" : ""}${
+            size === 16 ? "sixteen" : ""
+          } pair-grid`}
         >
-          {array.map((backImg, index) => {
-            // chemPairs.length &&
-            //   console.log(chemPairs[index].image, "CHEM PAIRS image");
-            // if (activeImage === index && found.includes(activeImage) {
-            //   setShowInfo(true)
-            // })
-
+          {chemPairs.map((backImg, index) => {
             return (
               <div
                 className="card-cont"
                 onMouseOver={() => setActiveImage(index)}
                 onMouseLeave={() => setActiveImage(-1)}
+                onClick={() => handleOnClick(index)}
               >
-                <img
-                  className={`grid-img ${
-                    activeAndFound(index) ? "show-link" : "hide-link"
-                  }`}
-                  key={index}
-                  src={
-                    activeAndFound(index)
-                      ? chemPairs[index].altImage
-                      : sourceFTN(index)
-                  }
-                  alt="Chemistry pairs logo"
-                  onClick={() => handleOnClick(index)}
-                ></img>
-                {activeImage === index && found.includes(activeImage) ? (
-                  <div className="img-text">
-                    <a href={chemPairs[index].wikipedia}>
-                      {chemPairs[index].name}
-                    </a>
-                  </div>
-                ) : (
-                  console.log("no")
-                )}
+                {whichCard(index)}
               </div>
             );
           })}

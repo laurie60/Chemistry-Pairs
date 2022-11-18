@@ -1,4 +1,5 @@
-:root {
+@import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
+* :root {
   /* COLORS  */
   /* primary */
   --primary-0: #f0efff;
@@ -89,17 +90,30 @@
 }
 
 .head {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 90vm;
   max-width: var(--max-width);
+}
+
+.head .flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 50px;
 }
 
 .head img {
   width: 200px;
   margin-left: -6px;
   /* margin-bottom: -9px; */
+}
+.head h3 {
+  font-size: 5rem;
+  /* display: inline-block; */
+  /* justify-self: start; */
+}
+
+.head h2 {
+  font-family: "Quantico", sans-serif;
 }
 
 .game-container {
@@ -155,8 +169,11 @@
 
 .img-text {
   position: absolute;
-  bottom: 5px;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-transform: capitalize;
+  background-color: rgba(255, 255, 255, 0.744);
+  border-style: solid;
+  border-color: #0f513203;
 }
