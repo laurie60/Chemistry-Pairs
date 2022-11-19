@@ -1,7 +1,6 @@
 import "./App.css";
 import Layout from "./components/Layout";
 import logo from "./assets/chemistry.svg";
-import chemistryCard from "./assets/chemistrycard.svg";
 import { useEffect, useState } from "react";
 import shuffleCards from "./components/useShuffleCards";
 import CardDown from "./components/CardDown";
@@ -20,7 +19,6 @@ function App() {
     if (value !== size) {
       setSize(value);
     }
-    console.log(size, "size!!!!!");
   };
 
   useEffect(() => {
@@ -29,7 +27,6 @@ function App() {
     setAllowFlip(true);
     setFlipped([]);
     setChemPairs(shuffleCards(size));
-    console.log("changin too much");
   }, [size]);
 
   useEffect(() => {
