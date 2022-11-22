@@ -68,8 +68,8 @@ function App() {
   };
 
   const whichCard = (index) => {
-    console.log(found, "found");
-    console.log(activeAndFound(index));
+    // console.log(found, "found");
+    // console.log(activeAndFound(index));
     if (!flip(index)) {
       return <CardDown index={index} />;
     } else if (flip(index) && activeAndFound(index)) {

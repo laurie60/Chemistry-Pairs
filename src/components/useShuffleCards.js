@@ -73,10 +73,10 @@ const shuffleCards = (size) => {
     },
   ];
 
-  console.log(shuffle(chems), "chems", size);
+  // console.log(shuffle(chems), "chems", size);
 
   const suffled = shuffle(chems).slice(0, size / 2);
-  console.log(suffled, "shuffled");
+  // console.log(suffled, "shuffled");
 
   return shuffle(suffled.concat(suffled));
 };
