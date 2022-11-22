@@ -30,8 +30,8 @@ const shuffleCards = (size) => {
       name: "ethanol",
     },
     {
-      image: altParacetamol,
-      altImage: paracetamol,
+      image: paracetamol,
+      altImage: altParacetamol,
       wikipedia: "https://en.wikipedia.org/wiki/Paracetamol",
       name: "paracetamol",
     },
