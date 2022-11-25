@@ -24,7 +24,7 @@ const Header = ({ score, changeValue, size }) => {
         {/* <img src={logo} alt="Chemistry pairs logo" /> */}
         <h1>Chemistry Pairs</h1>
         <h2>
-          Pairs:<br></br> {score}
+          Pairs:<br></br> {score}/{size / 2}
         </h2>
       </div>
     </header>
