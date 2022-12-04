@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../assets/chemistry.svg";
 
 import { Slider } from "@mui/material";
 

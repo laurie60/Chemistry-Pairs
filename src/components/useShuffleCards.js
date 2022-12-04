@@ -1,8 +1,6 @@
-import React from "react";
-import { useEffect, useState } from "react";
 import ethanol from "../assets/ethanol.svg";
-import paracetamol from "../assets/paracetamol.svg";
-import altParacetamol from "../assets/altParacetamol.svg";
+import paracetamol from "../assets/paracetamol.png";
+import altParacetamol from "../assets/altParacetamol.png";
 import altEthanol from "../assets/altEthanol.svg";
 import caffeine from "../assets/caffeine.svg";
 import altCaffeine from "../assets/altCaffeine.svg";
