@@ -1,6 +1,5 @@
 import "./App.css";
 import Layout from "./components/Layout";
-import logo from "./assets/chemistry.svg";
 import { useEffect, useState } from "react";
 import shuffleCards from "./components/useShuffleCards";
 import CardDown from "./components/CardDown";
