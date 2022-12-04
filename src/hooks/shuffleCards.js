@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import ethanol from "./assets/ethanol.svg";
 import paracetamol from "./assets/paracetamol.svg";
